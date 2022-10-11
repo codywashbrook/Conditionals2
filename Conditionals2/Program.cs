@@ -9,7 +9,6 @@ namespace Conditionals2
     internal class Program
     {
         static int health;
-        static int hp;
         static void Main(string[] args)
         {
             Console.WriteLine("Conditionals2");
