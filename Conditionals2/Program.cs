@@ -9,18 +9,25 @@ namespace Conditionals2
     internal class Program
     {
         static int health;
+        static int shield;
+        static int weapons;
         static void Main(string[] args)
         {
             Console.WriteLine("Conditionals2");
             Console.WriteLine();
 
+
             health = 100;
+            shield = 100;
+
             ShowHUD();
-            TakeDamage(50); //range checking
+            TakeDamage(150); //range checking
             ShowHUD();
             Heal(25);
             ShowHUD();
-            Console.WriteLine();
+            ChangeWeapon(1);
+            ChangeWeapon(2);
+            ChangeWeapon(3);
 
 
             Console.ReadKey(true);
@@ -33,7 +40,15 @@ namespace Conditionals2
         static void TakeDamage(int damage) //damage only works w int
         {
             Console.WriteLine("Player is about to take " + damage + " damage..."); // debug: shows what line is playing
-            health = health - damage;
+            shield = shield - damage;
+            if (shield == 0)
+            {
+                health = health - damage;
+            }
+            else
+            {
+                shield = 0;
+            }
 
             if (health < 0) //range checking code
             {
@@ -44,6 +59,7 @@ namespace Conditionals2
         static void ShowHUD()
         {
             Console.WriteLine("Health: " + health);
+            Console.WriteLine("Shield: " + shield);
             string status;
             status = "";
 
@@ -58,6 +74,28 @@ namespace Conditionals2
             }
 
             Console.WriteLine("Health status: " + status);
+        }
+
+        static void ChangeWeapon(int weaponPickedUp)
+        {
+            weapons = weapons + weaponPickedUp;
+            if (weapons == 1)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Player changed weapon to: Pistol ");
+                Console.WriteLine();
+            }
+            weapons = weapons + weaponPickedUp;
+            if (weapons == 2)
+            {
+                Console.WriteLine("Player changed weapon to: Shotgun ");
+                Console.WriteLine();
+            }
+            weapons = weapons + weaponPickedUp;
+            if (weapons == 3)
+            {
+                Console.WriteLine("Player changed weapon to: AR15 ");
+            }
         }
     }
 }
