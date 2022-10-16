@@ -40,26 +40,30 @@ namespace Conditionals2
         static void TakeDamage(int damage) //damage only works w int
         {
             Console.WriteLine("Player is about to take " + damage + " damage..."); // debug: shows what line is playing
-            shield = shield - damage;
-            if (shield == 0)
+          //shield = shield - damage;
+            if (shield >= health)
             {
-                health = health - damage;
+                shield = shield - damage;
+
             }
             else
             {
-                shield = 0;
+                health = health - damage;
             }
-
             if (health < 0) //range checking code
             {
                 health = 0;
+            }
+            if (shield < 0)
+            {
+                shield = 0;
             }
         }
 
         static void ShowHUD()
         {
-            Console.WriteLine("Health: " + health);
             Console.WriteLine("Shield: " + shield);
+            Console.WriteLine("Health: " + health);
             string status;
             status = "";
 
