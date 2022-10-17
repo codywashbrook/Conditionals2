@@ -11,6 +11,7 @@ namespace Conditionals2
         static int health;
         static int shield;
         static int weapons;
+        static int lives;
         static void Main(string[] args)
         {
             Console.WriteLine("Conditionals2");
@@ -19,11 +20,11 @@ namespace Conditionals2
 
             health = 100;
             shield = 100;
+            lives = 003;
 
             ShowHUD();
-            TakeDamage(150); //range checking
+            TakeDamage(200); //range checking
             ShowHUD();
-            Heal(25);
             ShowHUD();
             ChangeWeapon(1);
             ChangeWeapon(2);
@@ -36,32 +37,85 @@ namespace Conditionals2
         {
             health = health + hp;
             Console.WriteLine("Player has healed by: " + hp + " points...");
-        }
-        static void TakeDamage(int damage) //damage only works w int
-        {
-            Console.WriteLine("Player is about to take " + damage + " damage..."); // debug: shows what line is playing
-            shield = shield - damage;
-            if (shield == 0)
+            if (hp > 100)
             {
-                health = health - damage;
+                health = 100;
+                Console.WriteLine("[Player is at Max HP and Cannot Heal Anymore]");
+            }
+            if (hp < 0)
+            {
+                health = 100;
+                Console.WriteLine("[ERROR: Negative Value]");
+                Console.WriteLine();
+
+            }
+        }
+
+        static void RegenerateShield(int regen)
+        {
+            shield = shield + regen;
+            Console.WriteLine("Player has picked up a shield: " + regen + " points regenerated...");
+            if (shield > 100)
+            {
+                shield = 100;
+                Console.WriteLine("[Player is at Max Shield and Cannot Regenerate Anymore]");
             }
             else
             {
                 shield = 0;
+                Console.WriteLine("[ERROR: Negative Value]");
+                Console.WriteLine();
+            }
+        }
+        static void TakeDamage(int damage) //damage only works w int
+        {
+            Console.WriteLine("Player is about to take " + damage + " damage..."); // debug: shows what line is playing
+            //shield = shield - damage;
+            if (shield == 100)
+            {
+                health = (health + shield) - damage;
+                shield = shield - damage;
+            }
+            else if (shield == 0)
+            {
+                health = health - damage;
             }
 
+            if (shield < 0)
+            {
+                shield = 0;
+            }
             if (health < 0) //range checking code
             {
                 health = 0;
             }
+            if (shield > 100)
+            {
+                shield = 100;
+                Console.WriteLine("[ERROR: Negative Value]");
+                Console.WriteLine();
+            }
+
         }
 
         static void ShowHUD()
         {
             Console.WriteLine("Health: " + health);
             Console.WriteLine("Shield: " + shield);
+            Console.WriteLine("Lives: 00" + lives);
             string status;
             status = "";
+            Console.WriteLine();
+            
+            if (shield >= 75)
+            {
+                status = "Great";
+            }
+
+            if ((shield <= 50) && (shield >= 30))
+            {
+                status = "Good";
+            }
 
             if (health >= 75)
             {
@@ -74,6 +128,12 @@ namespace Conditionals2
             }
 
             Console.WriteLine("Health status: " + status);
+
+            if (health == 0)
+            {
+                status = "Dead";
+                lives = lives - 1;
+            }
         }
 
         static void ChangeWeapon(int weaponPickedUp)
