@@ -88,47 +88,10 @@ namespace Conditionals2
             }
 
         }
-        static void TakeDamage(int damage) //damage only works w int
-        {
-            Console.WriteLine("Player is about to take " + damage + " damage..."); // debug: shows what line is playing
-          //shield = shield - damage;
-            if (shield >= health)
-            {
-                shield = shield - damage;
-
-            }
-            else
-            {
-                health = health - damage;
-            }
-
-            if (health < 0) //range checking code
-            {
-                health = 0;
-            }
-
-            if (shield > 100)
-            {
-                shield = 100;
-                Console.WriteLine("[ERROR: Negative Value]");
-                Console.WriteLine();
-            }
-
-
-            if (shield < 0)
-            {
-                shield = 0;
-            }
-
-        }
 
         static void ShowHUD()
         {
-            Console.WriteLine("Shield: " + shield);
 
-            Console.WriteLine("Lives: 00" + lives);
-
-            Console.WriteLine("Health: " + health);
             string status;
             status = "";
             Console.WriteLine();
@@ -160,6 +123,12 @@ namespace Conditionals2
                 status = "Dead";
                 lives = lives - 1;
             }
+
+            Console.WriteLine("Shield: " + shield);
+
+            Console.WriteLine("Lives: 00" + lives);
+
+            Console.WriteLine("Health: " + health);
         }
 
         static void ChangeWeapon(int weaponPickedUp)
