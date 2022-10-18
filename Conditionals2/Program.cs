@@ -23,8 +23,11 @@ namespace Conditionals2
             lives = 003;
 
             ShowHUD();
-            TakeDamage(200); //range checking
+            TakeDamage(-10); //range checking
             ShowHUD();
+            RegenerateShield(-50);
+            ShowHUD();
+            Heal(-20);
             ShowHUD();
             ChangeWeapon(1);
             ChangeWeapon(2);
@@ -45,27 +48,25 @@ namespace Conditionals2
             }
             if (hp < 0)
             {
-                health = 100;
+                health = health - hp;
                 Console.WriteLine("[ERROR: Negative Value]");
                 Console.WriteLine();
 
             }
         }
-
         static void RegenerateShield(int regen)
         {
             shield = shield + regen;
             Console.WriteLine("Player has picked up a shield: " + regen + " points regenerated...");
-            if (shield > 100)
+            if (regen > 100)
             {
                 shield = 100;
                 Console.WriteLine("[Player is at Max Shield and Cannot Regenerate Anymore]");
             }
-            else
+            if (regen < 0)
             {
-                shield = 0;
+                shield = shield - regen;
                 Console.WriteLine("[ERROR: Negative Value]");
-                Console.WriteLine();
             }
         }
         static void TakeDamage(int damage) //damage only works w int
@@ -74,7 +75,7 @@ namespace Conditionals2
             //shield = shield - damage;
             if (shield == 100)
             {
-                health = (health + shield) - damage;
+                health = health + shield - damage;
                 shield = shield - damage;
             }
             else if (shield == 0)
@@ -86,7 +87,23 @@ namespace Conditionals2
             {
                 shield = 0;
             }
-
+            if (health < 0)
+            {
+                health = 0;
+            }
+            if (health > 100)
+            {
+                health = 100;
+            }
+            if (damage < 0)
+            {
+                shield = shield + damage;
+                Console.WriteLine("[ERROR: Negative Value]");
+            }
+            else
+            {
+                health = health + damage;
+            }
         }
 
         static void ShowHUD()
